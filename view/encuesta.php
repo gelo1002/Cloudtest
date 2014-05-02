@@ -11,6 +11,7 @@
 	    <!-- Bootstrap core CSS -->
 	    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	    <link href="../bootstrap/css/default.css" rel="stylesheet">
+	    <link href="../bootstrap/css/dashboard.css" rel="stylesheet">
   	</head>
 
   	<body>
@@ -123,7 +124,8 @@
 		  			<li id="office"><a href="office.php">office</a></li>
 				  	<li id="ingles"><a>ingles</a></li>
 				  	<li id="cleaver"><a href="cleaver.php">Cleaver</a></li>
-				  	<li id="resultado"><a>resultado</a></li>
+				  	<li id="resultado"><a href="resultados.php">resultado</a></li>
+				  	<li id="salida"><a href="../logout.php">Salir</a></li>
 				</ol>
 	    </div>
 

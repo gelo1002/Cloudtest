@@ -21,6 +21,28 @@ function init(){
 	$('#FrmPS').on('submit',senior);
 	$('#FrmAddUsers').on('submit',adduser);	
 
+	$('.btn-info').on('click',getusers);
+}
+
+function getusers(ev){
+	var item = [];
+	item.push({
+	"id": $(this).data('id')
+	});
+	console.log(item);
+	$.post("../include/tempo.php",{p:"getusers",datos:JSON.stringify(item)},setTable);
+}
+
+function setTable(request){
+	console.log(request);
+	var r = JSON.parse(request);
+	var item = "";
+	$("#TbData").empty();
+	r.forEach(function(i){
+		
+		item = "<tr><td>"+i['nombre']+"</td><td>"+i['user']+"</td><td>"+i['acierto_puesto']+"</td><td>"+i['np_puesto']+"</td><td>"+i['acierto_office']+"</td><td>"+i['np_office']+"</td></tr>";
+		$("#TbData").append(item);
+    });
 }
 
 function adduser(ev){
@@ -31,8 +53,6 @@ function adduser(ev){
 	item.push({
 		
 		"nombre": f.nombre.value,
-		"apellidos": f.apellidos.value,
-		"email": f.email.value,
 		"puesto": f.Mpuesto.value,
 		"user": f.user.value,
 		"passwd": f.passwd.value

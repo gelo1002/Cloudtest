@@ -54,24 +54,29 @@ switch ($opcion) {
 	case 'addusers':
 	 	$r = addusers();
 	break;
+	case 'getusers':
+	 	$r = getusers();
+	break;
 	
 }
-
-function tempo(){
-
-	//$Login = new Login();
-
-	//var_dump($Login->GetStatus());	
-	//$q ="INSERT INTO `tempo`(`acierto`)VALUES('".$id."')";
-	//$r = consulta($q);
-	//echo json_encode($r);
+function getusers(){
+	$datos = json_decode($_POST['datos'],true);
+	$f = array();  
+	$q = "SELECT users.idusers,users.nombre,users.user,resultados.id_user,resultados.np_office,resultados.acierto_office,resultados.np_puesto,resultados.acierto_puesto FROM users , resultados WHERE users.idusers= resultados.id_user && users.puesto='".$datos[0]['id']."'";	
+	//$q="SELECT * FROM users, resultados WHERE users.idusers=resultados.id_user";
+	$r = consulta($q);
+	//var_dump($r);
+	while ( $i = $r['q']->fetch_array(MYSQLI_ASSOC)) {
+			array_push($f, $i);
+		}
+	echo json_encode($f);
 }
 
 function addusers(){
 	$datos = json_decode($_POST['datos'],true);
 	$pass=$datos[0]['passwd'];
 	$passwd = sha1(md5($pass));
-	$q ="INSERT INTO `users`(`nombre`,`apellidos`,`email`,`puesto`,`user`,`passwd`)VALUES('".$datos[0]['nombre']."','".$datos[0]['apellidos']."','".$datos[0]['email']."','".$datos[0]['puesto']."','".$datos[0]['user']."','".$passwd."')";
+	$q ="INSERT INTO `users`(`nombre`,`puesto`,`user`,`passwd`)VALUES('".$datos[0]['nombre']."','".$datos[0]['puesto']."','".$datos[0]['user']."','".$passwd."')";
 	$r = consulta($q);
 	echo json_encode($r);
 }

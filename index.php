@@ -56,10 +56,9 @@
               <div id="Formulario">
                   <form id="FrmAddUsers" class="form-horizontal" role="form">
 
-                        <label >Nombre(s):</label><input  id="nombre" class="form-control" type="text" required/><br/>
-                        <label >Apellidos(s):</label><input  id="apellidos" class="form-control" type="text" required /><br/>               
-                        <label>Email:</label><input  id="email" class="form-control" type="text" required /><br/>
-                        <label >usuario:</label><input  id="user" class="form-control" type="text" required/><br/>
+                        <label >Nombre Completo:</label><input  id="nombre" class="form-control" type="text" required/><br/>             
+                        <label>Email:</label><input  id="user" class="form-control" type="email" required /><br/>
+                       <!-- <label >usuario:</label><input  id="user" class="form-control" type="text" required/><br/>-->
                         <label >Password:</label><input  id="passwd" class="form-control" type="password" required/><br/>
                         <label >Puesto que Solicita:</label>
                         <select id="Mpuesto" class="form-control"><span class="caret"></span></select><br/>  
