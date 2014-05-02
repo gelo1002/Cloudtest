@@ -120,11 +120,22 @@
 						 	}	
 		 			?>
 
-
+		 			<?php 
+							if ($_SESSION["puesto"]!="todos") {
+					?>
 		  			<li id="office"><a href="office.php">office</a></li>
-				  	<li id="ingles"><a>ingles</a></li>
-				  	<li id="cleaver"><a href="cleaver.php">Cleaver</a></li>
+		  			<?php
+						 	}	
+		 			?>
+				  	<!--<li id="ingles"><a>ingles</a></li>-->
+				  	<!--<li id="cleaver"><a href="cleaver.php">Cleaver</a></li>-->
+				  	<?php 
+							if ($_SESSION["puesto"]=="todos") {
+					?>
 				  	<li id="resultado"><a href="resultados.php">resultado</a></li>
+				  	<?php
+						 	}	
+		 			?>
 				  	<li id="salida"><a href="../logout.php">Salir</a></li>
 				</ol>
 	    </div>

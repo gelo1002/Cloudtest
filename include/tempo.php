@@ -48,6 +48,9 @@ switch ($opcion) {
 	case 'adquisicion':
 	 	$r = adquisicion();
 	break;
+	case 'campo':
+	 	$r = campo();
+	break;
 	case 'get':
 	 	$r = getpuesto();
 	break;
@@ -228,9 +231,12 @@ function comOffice(){
 		
 	}
 	
-	$q ="INSERT INTO `tempo`(`acierto`)VALUES('".$contador."')";
-	$r = consulta($q);
-	echo json_encode($r);
+	$Login = new Login();
+	$user = $Login->GetStatus();
+	$id_user=$user["id"];
+	$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
+	$rr = consulta($q);
+	echo json_encode($rr);
 }
 function design(){
 	$datos = json_decode($_POST['datos'],true);
@@ -341,9 +347,12 @@ function design(){
 		}		
 	}
 
-	$q ="INSERT INTO `tempo`(`acierto`)VALUES('".$contador."')";
-	$r = consulta($q);
-	echo json_encode($r);
+	$Login = new Login();
+	$user = $Login->GetStatus();
+	$id_user=$user["id"];
+	$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
+	$rr = consulta($q);
+	echo json_encode($rr);
 }
 function sspa(){
 	$datos = json_decode($_POST['datos'],true);
@@ -414,9 +423,12 @@ function sspa(){
 		}		
 	}
 
-	$q ="INSERT INTO `tempo`(`acierto`)VALUES('".$contador."')";
-	$r = consulta($q);
-	echo json_encode($r);
+	$Login = new Login();
+	$user = $Login->GetStatus();
+	$id_user=$user["id"];
+	$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
+	$rr = consulta($q);
+	echo json_encode($rr);
 }
 function junior(){
 	$datos = json_decode($_POST['datos'],true);
@@ -486,10 +498,26 @@ function junior(){
 			}
 		}		
 	}
+	$Login = new Login();
+	$user = $Login->GetStatus();
+	$id_user=$user["id"];
+	/*$q="SELECT `id_user` FROM `resultados` WHERE `id_user` = '".$id_user."' ";
+	$pp = consulta($q);
+	if (isset($pp['q'])) {
+		$q =("UPDATE `resultados` SET `np_puesto`= '".$row."' , `acierto_puesto`= '".$contador."' WHERE `id_user`= '".$id_user."' ");
+		$rr = consulta($q);
+	}
+	else{
+		$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
+		$rr = consulta($q);
 
-	$q ="INSERT INTO `tempo`(`acierto`)VALUES('".$contador."')";
-	$r = consulta($q);
-	echo json_encode($r);
+	}*/
+	$Login = new Login();
+	$user = $Login->GetStatus();
+	$id_user=$user["id"];
+	$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
+	$rr = consulta($q);
+	echo json_encode($rr);
 }
 function senior(){
 	$datos = json_decode($_POST['datos'],true);
@@ -580,9 +608,108 @@ function senior(){
 		}		
 	}
 
-	$q ="INSERT INTO `tempo`(`acierto`)VALUES('".$contador."')";
+	$Login = new Login();
+	$user = $Login->GetStatus();
+	$id_user=$user["id"];
+	$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
+	$rr = consulta($q);
+	echo json_encode($rr);
+}
+function campo(){
+	$datos = json_decode($_POST['datos'],true);
+	$contador=0;
+	$f = array();
+	$q= "SELECT `pregunta`,`respuesta` FROM `relacion` WHERE `id_puesto`= '15' ";
 	$r = consulta($q);
-	echo json_encode($r);
+		while ( $i = $r['q']->fetch_array(MYSQLI_ASSOC)) {
+			array_push($f, $i);
+		}
+
+	$row=count($f);	
+	for ($i=0; $i <$row ; $i++) { 
+		if ("p1" == $f[$i]["pregunta"]) {
+			if ($datos[0]['p1']==$f[$i]["respuesta"]) {
+				$contador++;
+			}
+		}
+		if ("p2" == $f[$i]["pregunta"]) {
+			if ($datos[0]['p2']==$f[$i]["respuesta"]) {
+				$contador++;
+			}
+		}
+		if ("p3" == $f[$i]["pregunta"]) {
+			if ($datos[0]['p3']==$f[$i]["respuesta"]) {
+				$contador++;
+			}
+		}
+		if ("p4" == $f[$i]["pregunta"]) {
+			if ($datos[0]['p4']==$f[$i]["respuesta"]) {
+				$contador++;
+			}
+		}
+		if ("p5" == $f[$i]["pregunta"]) {
+			if ($datos[0]['p5']==$f[$i]["respuesta"]) {
+				$contador++;
+			}
+		}
+		if ("p6" == $f[$i]["pregunta"]) {
+			if ($datos[0]['p6']==$f[$i]["respuesta"]) {
+				$contador++;
+			}
+		}
+		if ("p7" == $f[$i]["pregunta"]) {
+			if ($datos[0]['p7']==$f[$i]["respuesta"]) {
+				$contador++;
+			}
+		}
+		if ("p8" == $f[$i]["pregunta"]) {
+			if ($datos[0]['p8']==$f[$i]["respuesta"]) {
+				$contador++;
+			}
+		}
+		if ("p9" == $f[$i]["pregunta"]) {
+			if ($datos[0]['p9']==$f[$i]["respuesta"]) {
+				$contador++;
+			}
+		}
+		if ("p10" == $f[$i]["pregunta"]) {
+			if ($datos[0]['p10']==$f[$i]["respuesta"]) {
+				$contador++;
+			}
+		}
+		if ("p11" == $f[$i]["pregunta"]) {
+			if ($datos[0]['p11']==$f[$i]["respuesta"]) {
+				$contador++;
+			}
+		}
+		if ("p12" == $f[$i]["pregunta"]) {
+			if ($datos[0]['p12']==$f[$i]["respuesta"]) {
+				$contador++;
+			}
+		}
+		if ("p13" == $f[$i]["pregunta"]) {
+			if ($datos[0]['p13']==$f[$i]["respuesta"]) {
+				$contador++;
+			}
+		}
+		if ("p14" == $f[$i]["pregunta"]) {
+			if ($datos[0]['p14']==$f[$i]["respuesta"]) {
+				$contador++;
+			}
+		}
+		if ("p15" == $f[$i]["pregunta"]) {
+			if ($datos[0]['p15']==$f[$i]["respuesta"]) {
+				$contador++;
+			}
+		}		
+	}
+
+	$Login = new Login();
+	$user = $Login->GetStatus();
+	$id_user=$user["id"];
+	$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
+	$rr = consulta($q);
+	echo json_encode($rr);
 }
 function supscada(){
 	$datos = json_decode($_POST['datos'],true);
@@ -658,9 +785,12 @@ function supscada(){
 		}		
 	}
 
-	$q ="INSERT INTO `tempo`(`acierto`)VALUES('".$contador."')";
-	$r = consulta($q);
-	echo json_encode($r);
+	$Login = new Login();
+	$user = $Login->GetStatus();
+	$id_user=$user["id"];
+	$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
+	$rr = consulta($q);
+	echo json_encode($rr);
 
 }
 function sst(){
@@ -747,9 +877,12 @@ function sst(){
 		}		
 	}
 
-	$q ="INSERT INTO `tempo`(`acierto`)VALUES('".$contador."')";
-	$r = consulta($q);
-	echo json_encode($r);
+	$Login = new Login();
+	$user = $Login->GetStatus();
+	$id_user=$user["id"];
+	$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
+	$rr = consulta($q);
+	echo json_encode($rr);
 }
 function supcont(){
 	$datos = json_decode($_POST['datos'],true);
@@ -810,9 +943,12 @@ function supcont(){
 		}		
 	}
 
-	$q ="INSERT INTO `tempo`(`acierto`)VALUES('".$contador."')";
-	$r = consulta($q);
-	echo json_encode($r);
+	$Login = new Login();
+	$user = $Login->GetStatus();
+	$id_user=$user["id"];
+	$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
+	$rr = consulta($q);
+	echo json_encode($rr);
 }
 
 function calidad(){
@@ -924,9 +1060,12 @@ function calidad(){
 		}		
 	}
 
-	$q ="INSERT INTO `tempo`(`acierto`)VALUES('".$contador."')";
-	$r = consulta($q);
-	echo json_encode($r);
+	$Login = new Login();
+	$user = $Login->GetStatus();
+	$id_user=$user["id"];
+	$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
+	$rr = consulta($q);
+	echo json_encode($rr);
 }
 function opscada(){
 	$datos = json_decode($_POST['datos'],true);
@@ -992,9 +1131,12 @@ function opscada(){
 		}		
 	}
 
-	$q ="INSERT INTO `tempo`(`acierto`)VALUES('".$contador."')";
-	$r = consulta($q);
-	echo json_encode($r);
+	$Login = new Login();
+	$user = $Login->GetStatus();
+	$id_user=$user["id"];
+	$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
+	$rr = consulta($q);
+	echo json_encode($rr);
 }
 function econta(){
 	$datos = json_decode($_POST['datos'],true);
@@ -1050,9 +1192,12 @@ function econta(){
 		}		
 	}
 
-	$q ="INSERT INTO `tempo`(`acierto`)VALUES('".$contador."')";
-	$r = consulta($q);
-	echo json_encode($r);
+	$Login = new Login();
+	$user = $Login->GetStatus();
+	$id_user=$user["id"];
+	$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
+	$rr = consulta($q);
+	echo json_encode($rr);
 }
 function ventas(){
 	$datos = json_decode($_POST['datos'],true);
@@ -1128,9 +1273,12 @@ function ventas(){
 		}		
 	}
 
-	$q ="INSERT INTO `tempo`(`acierto`)VALUES('".$contador."')";
-	$r = consulta($q);
-	echo json_encode($r);
+	$Login = new Login();
+	$user = $Login->GetStatus();
+	$id_user=$user["id"];
+	$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
+	$rr = consulta($q);
+	echo json_encode($rr);
 }
 function erh(){
 	$datos = json_decode($_POST['datos'],true);
@@ -1196,9 +1344,12 @@ function erh(){
 		}		
 	}
 
-	$q ="INSERT INTO `tempo`(`acierto`)VALUES('".$contador."')";
-	$r = consulta($q);
-	echo json_encode($r);
+	$Login = new Login();
+	$user = $Login->GetStatus();
+	$id_user=$user["id"];
+	$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
+	$rr = consulta($q);
+	echo json_encode($rr);
 }
 
 function adquisicion(){
@@ -1265,16 +1416,19 @@ function adquisicion(){
 		}		
 	}
 
-	$q ="INSERT INTO `tempo`(`acierto`)VALUES('".$contador."')";
-	$r = consulta($q);
-	echo json_encode($r);
+	$Login = new Login();
+	$user = $Login->GetStatus();
+	$id_user=$user["id"];
+	$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
+	$rr = consulta($q);
+	echo json_encode($rr);
 }
 function cleaver(){
 	//$datos = json_decode($_POST['cleaver'],true);
 	//$user=array();
 	$Login = new Login();
 	$user = $Login->GetStatus();
-	var_dump($user["id"]);
+	//var_dump($user["id"]);
 	$MD=0; $MI=0; $MS=0; $MC=0;
 	$LD=0; $LI=0; $LS=0; $LC=$user["id"];
 

@@ -19,6 +19,8 @@ function init(){
 	$('#FrmSSPA').on('submit',sspa);
 	$('#FrmPJ').on('submit',junior);
 	$('#FrmPS').on('submit',senior);
+	$('#FrmIC').on('submit',campo);
+
 	$('#FrmAddUsers').on('submit',adduser);	
 
 	$('.btn-info').on('click',getusers);
@@ -640,7 +642,129 @@ function senior(ev){
 
 	$.post("../include/tempo.php",{p:"senior",datos:JSON.stringify(item)},resultado);
 }
+function campo(ev){
+	console.log("entro IC");
+	var item = [];
+	ev.preventDefault();
+    ev.stopPropagation();
+	f = ev.currentTarget;
+	
+	for (var i = 0; i < f.pregunta1.length; i++) {		
+		if (f.pregunta1[i]) {
+			if (f.pregunta1[i].checked) {
+				p1 = f.pregunta1[i].value;
+			};
+		};
+	};
+	for (var i = 0; i < f.pregunta2.length; i++) {
+		if (f.pregunta2[i]) {
+			if (f.pregunta2[i].checked) {
+				p2 = f.pregunta2[i].value;
+			};
+		};
+	};
+	for (var i = 0; i < f.pregunta3.length; i++) {
+		if (f.pregunta3[i]) {
+			if (f.pregunta3[i].checked) {
+				p3 = f.pregunta3[i].value;
+			};
+		};
+	};
+	for (var i = 0; i < f.pregunta4.length; i++) {
+		if (f.pregunta4[i]) {
+			if (f.pregunta4[i].checked) {
+				p4 = f.pregunta4[i].value;
+			};
+		};
+	};
+	for (var i = 0; i < f.pregunta5.length; i++) {
+		if (f.pregunta5[i]) {
+			if (f.pregunta5[i].checked) {
+				p5 = f.pregunta5[i].value;
+			};
+		};
+	};
+	for (var i = 0; i < f.pregunta6.length; i++) {
+		if (f.pregunta6[i]) {
+			if (f.pregunta6[i].checked) {
+				p6 = f.pregunta6[i].value;
+			};
+		};
+	};
+	for (var i = 0; i < f.pregunta7.length; i++) {
+		if (f.pregunta7[i]) {
+			if (f.pregunta7[i].checked) {
+				p7 = f.pregunta7[i].value;
+			};
+		};
+	};
+	for (var i = 0; i < f.pregunta8.length; i++) {
+		if (f.pregunta8[i]) {
+			if (f.pregunta8[i].checked) {
+				p8 = f.pregunta8[i].value;
+			};
+		};
+	};
+	for (var i = 0; i < f.pregunta9.length; i++) {
+		if (f.pregunta9[i]) {
+			if (f.pregunta9[i].checked) {
+				p9 = f.pregunta9[i].value;
+			};
+		};
+	};
+	for (var i = 0; i < f.pregunta10.length; i++) {
+		if (f.pregunta10[i]) {
+			if (f.pregunta10[i].checked) {
+				p10 = f.pregunta10[i].value;
+			};
+		};
+	};
+	for (var i = 0; i < f.pregunta11.length; i++) {
+		if (f.pregunta11[i]) {
+			if (f.pregunta11[i].checked) {
+				p11 = f.pregunta11[i].value;
+			};
+		};
+	};
+	for (var i = 0; i < f.pregunta12.length; i++) {
+		if (f.pregunta12[i]) {
+			if (f.pregunta12[i].checked) {
+				p12 = f.pregunta12[i].value;
+			};
+		};		
+	};
+	for (var i = 0; i < f.pregunta13.length; i++) {
+		if (f.pregunta13[i]) {
+			if (f.pregunta13[i].checked) {
+				p13 = f.pregunta13[i].value;
+			};
+		};		
+	};
+	for (var i = 0; i < f.pregunta14.length; i++) {
+		if (f.pregunta14[i]) {
+			if (f.pregunta14[i].checked) {
+				p14 = f.pregunta14[i].value;
+			};
+		};		
+	};
+	for (var i = 0; i < f.pregunta15.length; i++) {
+		if (f.pregunta15[i]) {
+			if (f.pregunta15[i].checked) {
+				p15= f.pregunta15[i].value;
+			};
+		};		
+	};
 
+	item.push({
+		"p1": p1,"p2": p2,"p3": p3,"p4": p4,"p5": p5,"p6": p6,"p7": p7,
+		"p8": p8,"p9": p9,"p10": p10,"p11": p11,"p12": p12,"p13": p13,
+		"p14": p14,"p15": p15
+	});
+	
+	console.log(item);
+
+	$.post("../include/tempo.php",{p:"campo",datos:JSON.stringify(item)},resultado);
+}
 
 function Supscada(ev){
 	console.log("entro sup scada xD");
@@ -1785,9 +1909,10 @@ function ingles(ev){
 }
 
 function resultado(request){
+	//console.log(request);
 	var r = JSON.parse(request); 
 	if (r["q"]==true) {
-		console.log(r);
+		//console.log(r);
 		alert("Datos guardados correctamente");
 	} else{
 		console.log(r);
