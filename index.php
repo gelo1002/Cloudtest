@@ -29,7 +29,7 @@
         <h2 class="form-signin-heading">Inicio de sesion</h2>
           <div class="input-group">
             <span class="input-group-addon glyphicon glyphicon-user"></span> 
-            <input class = "form-control"  placeholder="Usuario" name = "email" type = "text" required>
+            <input class = "form-control"  placeholder="Email" name = "email" type = "text" required>
           </div><br/>
           <div class="input-group">
             <span class="input-group-addon glyphicon glyphicon-qrcode"></span>             
