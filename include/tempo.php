@@ -1,7 +1,7 @@
 <?php
 require ("config.php");
 require ("../admin/core/Login.class.php");
-$opcion =$_POST['p'];
+$opcion = $_POST['p'];
 switch ($opcion) {
 	case 'office':
 		$r = comOffice();
@@ -90,9 +90,6 @@ function getpuesto(){
 		while ( $i = $r['q']->fetch_array(MYSQLI_ASSOC)) {
 			array_push($f, $i);
 		}
-		//$tempo=array("key"=>$f);
-
-		//echo utf8_encode($tempo);
 		echo json_encode($f);
 		
 }
@@ -100,6 +97,7 @@ function comOffice(){
 	$datos = json_decode($_POST['datos'],true);
 	$contador=0;
 	$f = array();
+	$confi= array();
 	$q= "SELECT `pregunta`,`respuesta` FROM `relacion` WHERE `id_puesto`= '1' ";
 	$r = consulta($q);
 		while ( $i = $r['q']->fetch_array(MYSQLI_ASSOC)) {
@@ -230,18 +228,33 @@ function comOffice(){
 		}
 		
 	}
-	
+
 	$Login = new Login();
 	$user = $Login->GetStatus();
 	$id_user=$user["id"];
-	$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
-	$rr = consulta($q);
+	$q="SELECT `id_user` FROM `resultados` WHERE `id_user` = '".$id_user."' ";
+	$pp = consulta($q);
+	while ( $i = $pp['q']->fetch_array(MYSQLI_ASSOC)) {
+			array_push($confi, $i);
+		}
+	
+	if (isset($confi[0])) {
+		$q =("UPDATE `resultados` SET `np_office`= '".$row."' , `acierto_office`= '".$contador."' WHERE `id_user`= '".$id_user."' ");
+		$rr = consulta($q);
+	}
+	else{
+		$q ="INSERT INTO `resultados`(`id_user`,`np_office`,`acierto_office`)VALUES('".$id_user."','".$row."','".$contador."')";
+		$rr = consulta($q);
+	}
+	
 	echo json_encode($rr);
+
 }
 function design(){
 	$datos = json_decode($_POST['datos'],true);
 	$contador=0;
 	$f = array();
+	$confi= array();
 	$q= "SELECT `pregunta`,`respuesta` FROM `relacion` WHERE `id_puesto`= '11' ";
 	$r = consulta($q);
 		while ( $i = $r['q']->fetch_array(MYSQLI_ASSOC)) {
@@ -350,14 +363,28 @@ function design(){
 	$Login = new Login();
 	$user = $Login->GetStatus();
 	$id_user=$user["id"];
-	$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
-	$rr = consulta($q);
+	$q="SELECT `id_user` FROM `resultados` WHERE `id_user` = '".$id_user."' ";
+	$pp = consulta($q);
+	while ( $i = $pp['q']->fetch_array(MYSQLI_ASSOC)) {
+			array_push($confi, $i);
+		}
+	
+	if (isset($confi[0])) {
+		$q =("UPDATE `resultados` SET `np_puesto`= '".$row."' , `acierto_puesto`= '".$contador."' WHERE `id_user`= '".$id_user."' ");
+		$rr = consulta($q);
+	}
+	else{
+		$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
+		$rr = consulta($q);
+	}
+	
 	echo json_encode($rr);
 }
 function sspa(){
 	$datos = json_decode($_POST['datos'],true);
 	$contador=0;
 	$f = array();
+	$confi= array();
 	$q= "SELECT `pregunta`,`respuesta` FROM `relacion` WHERE `id_puesto`= '12' ";
 	$r = consulta($q);
 		while ( $i = $r['q']->fetch_array(MYSQLI_ASSOC)) {
@@ -423,17 +450,31 @@ function sspa(){
 		}		
 	}
 
-	$Login = new Login();
+	$$Login = new Login();
 	$user = $Login->GetStatus();
 	$id_user=$user["id"];
-	$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
-	$rr = consulta($q);
+	$q="SELECT `id_user` FROM `resultados` WHERE `id_user` = '".$id_user."' ";
+	$pp = consulta($q);
+	while ( $i = $pp['q']->fetch_array(MYSQLI_ASSOC)) {
+			array_push($confi, $i);
+		}
+	
+	if (isset($confi[0])) {
+		$q =("UPDATE `resultados` SET `np_puesto`= '".$row."' , `acierto_puesto`= '".$contador."' WHERE `id_user`= '".$id_user."' ");
+		$rr = consulta($q);
+	}
+	else{
+		$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
+		$rr = consulta($q);
+	}
+	
 	echo json_encode($rr);
 }
 function junior(){
 	$datos = json_decode($_POST['datos'],true);
 	$contador=0;
 	$f = array();
+	$confi= array();
 	$q= "SELECT `pregunta`,`respuesta` FROM `relacion` WHERE `id_puesto`= '13' ";
 	$r = consulta($q);
 		while ( $i = $r['q']->fetch_array(MYSQLI_ASSOC)) {
@@ -501,28 +542,28 @@ function junior(){
 	$Login = new Login();
 	$user = $Login->GetStatus();
 	$id_user=$user["id"];
-	/*$q="SELECT `id_user` FROM `resultados` WHERE `id_user` = '".$id_user."' ";
+	$q="SELECT `id_user` FROM `resultados` WHERE `id_user` = '".$id_user."' ";
 	$pp = consulta($q);
-	if (isset($pp['q'])) {
+	while ( $i = $pp['q']->fetch_array(MYSQLI_ASSOC)) {
+			array_push($confi, $i);
+		}
+	
+	if (isset($confi[0])) {
 		$q =("UPDATE `resultados` SET `np_puesto`= '".$row."' , `acierto_puesto`= '".$contador."' WHERE `id_user`= '".$id_user."' ");
 		$rr = consulta($q);
 	}
 	else{
 		$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
 		$rr = consulta($q);
-
-	}*/
-	$Login = new Login();
-	$user = $Login->GetStatus();
-	$id_user=$user["id"];
-	$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
-	$rr = consulta($q);
+	}
+	
 	echo json_encode($rr);
 }
 function senior(){
 	$datos = json_decode($_POST['datos'],true);
 	$contador=0;
 	$f = array();
+	$confi= array();
 	$q= "SELECT `pregunta`,`respuesta` FROM `relacion` WHERE `id_puesto`= '14' ";
 	$r = consulta($q);
 		while ( $i = $r['q']->fetch_array(MYSQLI_ASSOC)) {
@@ -611,14 +652,28 @@ function senior(){
 	$Login = new Login();
 	$user = $Login->GetStatus();
 	$id_user=$user["id"];
-	$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
-	$rr = consulta($q);
+	$q="SELECT `id_user` FROM `resultados` WHERE `id_user` = '".$id_user."' ";
+	$pp = consulta($q);
+	while ( $i = $pp['q']->fetch_array(MYSQLI_ASSOC)) {
+			array_push($confi, $i);
+		}
+	
+	if (isset($confi[0])) {
+		$q =("UPDATE `resultados` SET `np_puesto`= '".$row."' , `acierto_puesto`= '".$contador."' WHERE `id_user`= '".$id_user."' ");
+		$rr = consulta($q);
+	}
+	else{
+		$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
+		$rr = consulta($q);
+	}
+	
 	echo json_encode($rr);
 }
 function campo(){
 	$datos = json_decode($_POST['datos'],true);
 	$contador=0;
 	$f = array();
+	$confi =array();
 	$q= "SELECT `pregunta`,`respuesta` FROM `relacion` WHERE `id_puesto`= '15' ";
 	$r = consulta($q);
 		while ( $i = $r['q']->fetch_array(MYSQLI_ASSOC)) {
@@ -707,14 +762,28 @@ function campo(){
 	$Login = new Login();
 	$user = $Login->GetStatus();
 	$id_user=$user["id"];
-	$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
-	$rr = consulta($q);
+	$q="SELECT `id_user` FROM `resultados` WHERE `id_user` = '".$id_user."' ";
+	$pp = consulta($q);
+	while ( $i = $pp['q']->fetch_array(MYSQLI_ASSOC)) {
+			array_push($confi, $i);
+		}
+	
+	if (isset($confi[0])) {
+		$q =("UPDATE `resultados` SET `np_puesto`= '".$row."' , `acierto_puesto`= '".$contador."' WHERE `id_user`= '".$id_user."' ");
+		$rr = consulta($q);
+	}
+	else{
+		$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
+		$rr = consulta($q);
+	}
+	
 	echo json_encode($rr);
 }
 function supscada(){
 	$datos = json_decode($_POST['datos'],true);
 	$contador=0;
 	$f = array();
+	$confi =array();
 	$q= "SELECT `pregunta`,`respuesta` FROM `relacion` WHERE `id_puesto`= '2' ";
 	$r = consulta($q);
 		while ( $i = $r['q']->fetch_array(MYSQLI_ASSOC)) {
@@ -788,8 +857,21 @@ function supscada(){
 	$Login = new Login();
 	$user = $Login->GetStatus();
 	$id_user=$user["id"];
-	$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
-	$rr = consulta($q);
+	$q="SELECT `id_user` FROM `resultados` WHERE `id_user` = '".$id_user."' ";
+	$pp = consulta($q);
+	while ( $i = $pp['q']->fetch_array(MYSQLI_ASSOC)) {
+			array_push($confi, $i);
+		}
+	
+	if (isset($confi[0])) {
+		$q =("UPDATE `resultados` SET `np_puesto`= '".$row."' , `acierto_puesto`= '".$contador."' WHERE `id_user`= '".$id_user."' ");
+		$rr = consulta($q);
+	}
+	else{
+		$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
+		$rr = consulta($q);
+	}
+	
 	echo json_encode($rr);
 
 }
@@ -797,6 +879,7 @@ function sst(){
 	$datos = json_decode($_POST['datos'],true);
 	$contador=0;
 	$f = array();
+	$confi =array();
 	$q= "SELECT `pregunta`,`respuesta` FROM `relacion` WHERE `id_puesto`= '3' ";
 	$r = consulta($q);
 		while ( $i = $r['q']->fetch_array(MYSQLI_ASSOC)) {
@@ -880,14 +963,28 @@ function sst(){
 	$Login = new Login();
 	$user = $Login->GetStatus();
 	$id_user=$user["id"];
-	$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
-	$rr = consulta($q);
+	$q="SELECT `id_user` FROM `resultados` WHERE `id_user` = '".$id_user."' ";
+	$pp = consulta($q);
+	while ( $i = $pp['q']->fetch_array(MYSQLI_ASSOC)) {
+			array_push($confi, $i);
+		}
+	
+	if (isset($confi[0])) {
+		$q =("UPDATE `resultados` SET `np_puesto`= '".$row."' , `acierto_puesto`= '".$contador."' WHERE `id_user`= '".$id_user."' ");
+		$rr = consulta($q);
+	}
+	else{
+		$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
+		$rr = consulta($q);
+	}
+	
 	echo json_encode($rr);
 }
 function supcont(){
 	$datos = json_decode($_POST['datos'],true);
 	$contador=0;
 	$f = array();
+	$confi = array();
 	$q= "SELECT `pregunta`,`respuesta` FROM `relacion` WHERE `id_puesto`= '7' ";
 	$r = consulta($q);
 		while ( $i = $r['q']->fetch_array(MYSQLI_ASSOC)) {
@@ -946,8 +1043,21 @@ function supcont(){
 	$Login = new Login();
 	$user = $Login->GetStatus();
 	$id_user=$user["id"];
-	$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
-	$rr = consulta($q);
+	$q="SELECT `id_user` FROM `resultados` WHERE `id_user` = '".$id_user."' ";
+	$pp = consulta($q);
+	while ( $i = $pp['q']->fetch_array(MYSQLI_ASSOC)) {
+			array_push($confi, $i);
+		}
+	
+	if (isset($confi[0])) {
+		$q =("UPDATE `resultados` SET `np_puesto`= '".$row."' , `acierto_puesto`= '".$contador."' WHERE `id_user`= '".$id_user."' ");
+		$rr = consulta($q);
+	}
+	else{
+		$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
+		$rr = consulta($q);
+	}
+	
 	echo json_encode($rr);
 }
 
@@ -955,6 +1065,7 @@ function calidad(){
 	$datos = json_decode($_POST['datos'],true);
 	$contador=0;
 	$f = array();
+	$confi =array();
 	$q= "SELECT `pregunta`,`respuesta` FROM `relacion` WHERE `id_puesto`= '5' ";
 	$r = consulta($q);
 		while ( $i = $r['q']->fetch_array(MYSQLI_ASSOC)) {
@@ -1063,14 +1174,28 @@ function calidad(){
 	$Login = new Login();
 	$user = $Login->GetStatus();
 	$id_user=$user["id"];
-	$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
-	$rr = consulta($q);
+	$q="SELECT `id_user` FROM `resultados` WHERE `id_user` = '".$id_user."' ";
+	$pp = consulta($q);
+	while ( $i = $pp['q']->fetch_array(MYSQLI_ASSOC)) {
+			array_push($confi, $i);
+		}
+	
+	if (isset($confi[0])) {
+		$q =("UPDATE `resultados` SET `np_puesto`= '".$row."' , `acierto_puesto`= '".$contador."' WHERE `id_user`= '".$id_user."' ");
+		$rr = consulta($q);
+	}
+	else{
+		$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
+		$rr = consulta($q);
+	}
+	
 	echo json_encode($rr);
 }
 function opscada(){
 	$datos = json_decode($_POST['datos'],true);
 	$contador=0;
 	$f = array();
+	$confi =array();
 	$q= "SELECT `pregunta`,`respuesta` FROM `relacion` WHERE `id_puesto`= '6' ";
 	$r = consulta($q);
 		while ( $i = $r['q']->fetch_array(MYSQLI_ASSOC)) {
@@ -1134,14 +1259,28 @@ function opscada(){
 	$Login = new Login();
 	$user = $Login->GetStatus();
 	$id_user=$user["id"];
-	$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
-	$rr = consulta($q);
+	$q="SELECT `id_user` FROM `resultados` WHERE `id_user` = '".$id_user."' ";
+	$pp = consulta($q);
+	while ( $i = $pp['q']->fetch_array(MYSQLI_ASSOC)) {
+			array_push($confi, $i);
+		}
+	
+	if (isset($confi[0])) {
+		$q =("UPDATE `resultados` SET `np_puesto`= '".$row."' , `acierto_puesto`= '".$contador."' WHERE `id_user`= '".$id_user."' ");
+		$rr = consulta($q);
+	}
+	else{
+		$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
+		$rr = consulta($q);
+	}
+	
 	echo json_encode($rr);
 }
 function econta(){
 	$datos = json_decode($_POST['datos'],true);
 	$contador=0;
 	$f = array();
+	$confi =array();
 	$q= "SELECT `pregunta`,`respuesta` FROM `relacion` WHERE `id_puesto`= '4' ";
 	$r = consulta($q);
 		while ( $i = $r['q']->fetch_array(MYSQLI_ASSOC)) {
@@ -1195,14 +1334,28 @@ function econta(){
 	$Login = new Login();
 	$user = $Login->GetStatus();
 	$id_user=$user["id"];
-	$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
-	$rr = consulta($q);
+	$q="SELECT `id_user` FROM `resultados` WHERE `id_user` = '".$id_user."' ";
+	$pp = consulta($q);
+	while ( $i = $pp['q']->fetch_array(MYSQLI_ASSOC)) {
+			array_push($confi, $i);
+		}
+	
+	if (isset($confi[0])) {
+		$q =("UPDATE `resultados` SET `np_puesto`= '".$row."' , `acierto_puesto`= '".$contador."' WHERE `id_user`= '".$id_user."' ");
+		$rr = consulta($q);
+	}
+	else{
+		$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
+		$rr = consulta($q);
+	}
+	
 	echo json_encode($rr);
 }
 function ventas(){
 	$datos = json_decode($_POST['datos'],true);
 	$contador=0;
 	$f = array();
+	$confi = array();
 	$q= "SELECT `pregunta`,`respuesta` FROM `relacion` WHERE `id_puesto`= '8' ";
 	$r = consulta($q);
 		while ( $i = $r['q']->fetch_array(MYSQLI_ASSOC)) {
@@ -1276,14 +1429,28 @@ function ventas(){
 	$Login = new Login();
 	$user = $Login->GetStatus();
 	$id_user=$user["id"];
-	$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
-	$rr = consulta($q);
+	$q="SELECT `id_user` FROM `resultados` WHERE `id_user` = '".$id_user."' ";
+	$pp = consulta($q);
+	while ( $i = $pp['q']->fetch_array(MYSQLI_ASSOC)) {
+			array_push($confi, $i);
+		}
+	
+	if (isset($confi[0])) {
+		$q =("UPDATE `resultados` SET `np_puesto`= '".$row."' , `acierto_puesto`= '".$contador."' WHERE `id_user`= '".$id_user."' ");
+		$rr = consulta($q);
+	}
+	else{
+		$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
+		$rr = consulta($q);
+	}
+	
 	echo json_encode($rr);
 }
 function erh(){
 	$datos = json_decode($_POST['datos'],true);
 	$contador=0;
 	$f = array();
+	$confi = array();
 	$q= "SELECT `pregunta`,`respuesta` FROM `relacion` WHERE `id_puesto`= '9' ";
 	$r = consulta($q);
 		while ( $i = $r['q']->fetch_array(MYSQLI_ASSOC)) {
@@ -1347,8 +1514,21 @@ function erh(){
 	$Login = new Login();
 	$user = $Login->GetStatus();
 	$id_user=$user["id"];
-	$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
-	$rr = consulta($q);
+	$q="SELECT `id_user` FROM `resultados` WHERE `id_user` = '".$id_user."' ";
+	$pp = consulta($q);
+	while ( $i = $pp['q']->fetch_array(MYSQLI_ASSOC)) {
+			array_push($confi, $i);
+		}
+	
+	if (isset($confi[0])) {
+		$q =("UPDATE `resultados` SET `np_puesto`= '".$row."' , `acierto_puesto`= '".$contador."' WHERE `id_user`= '".$id_user."' ");
+		$rr = consulta($q);
+	}
+	else{
+		$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
+		$rr = consulta($q);
+	}
+	
 	echo json_encode($rr);
 }
 
@@ -1356,6 +1536,7 @@ function adquisicion(){
 	$datos = json_decode($_POST['datos'],true);
 	$contador=0;
 	$f = array();
+	$confi = array();
 	$q= "SELECT `pregunta`,`respuesta` FROM `relacion` WHERE `id_puesto`= '10' ";
 	$r = consulta($q);
 		while ( $i = $r['q']->fetch_array(MYSQLI_ASSOC)) {
@@ -1419,8 +1600,21 @@ function adquisicion(){
 	$Login = new Login();
 	$user = $Login->GetStatus();
 	$id_user=$user["id"];
-	$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
-	$rr = consulta($q);
+	$q="SELECT `id_user` FROM `resultados` WHERE `id_user` = '".$id_user."' ";
+	$pp = consulta($q);
+	while ( $i = $pp['q']->fetch_array(MYSQLI_ASSOC)) {
+			array_push($confi, $i);
+		}
+	
+	if (isset($confi[0])) {
+		$q =("UPDATE `resultados` SET `np_puesto`= '".$row."' , `acierto_puesto`= '".$contador."' WHERE `id_user`= '".$id_user."' ");
+		$rr = consulta($q);
+	}
+	else{
+		$q ="INSERT INTO `resultados`(`id_user`,`np_puesto`,`acierto_puesto`)VALUES('".$id_user."','".$row."','".$contador."')";
+		$rr = consulta($q);
+	}
+	
 	echo json_encode($rr);
 }
 function cleaver(){
